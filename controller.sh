@@ -339,8 +339,7 @@ cinder_install(){
 	openstack user create --domain default --password $CINDER_PASS cinder
 	openstack role add --project service --user cinder admin
 	openstack service list|grep -q 'volumev2' || openstack service create --name cinderv2 --description "OpenStack Block Storage" volumev2
-	openstack service list|grep -q 'volumev3' || openstack service create --name cinderv2
---description "OpenStack Block Storage" volumev3
+	openstack service list|grep -q 'volumev3' || openstack service create --name cinderv3 --description "OpenStack Block Storage" volumev3
 	if ! openstack endpoint list|grep -q 'http://controller:8776/v2/%\(project_id\)s';then
 		openstack endpoint create --region RegionOne volumev2 public http://controller:8776/v2/%\(project_id\)s
 		openstack endpoint create --region RegionOne volumev2 internal http://controller:8776/v2/%\(project_id\)s
