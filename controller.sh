@@ -30,7 +30,8 @@ db_insall(){
 	EOF
 	systemctl enable mariadb.service
 	systemctl restart mariadb.service
-	mysql -uroot -p$MYSQL_PASS -e "drop database test;drop user root@'::1';drop user ''@'controller';drop user ''@'localhost';" &>/dev/null
+	mysql -e "drop database test;drop user root@'::1';drop user ''@'controller';drop user ''@'localhost';" &>/dev/null
+	mysqladmin password $MYSQL_PASS
 }
 
 #安装rabbitmq消息队列
