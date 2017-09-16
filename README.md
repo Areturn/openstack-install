@@ -15,9 +15,9 @@
 # 三、部署
 -------------------------
 1、配置文件
-  password：       各项服务密码配置
-  openstack.conf： compute、cinder节点IP设置
-  hsots：          hosts文件，必须配置各节点能使用主机名互通！
+#password：       各项服务密码配置
+#openstack.conf： compute、cinder节点IP设置
+#hsots：          hosts文件，必须配置各节点能使用主机名互通！
 
 2、安装
 bash install.sh
