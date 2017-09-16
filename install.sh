@@ -19,26 +19,24 @@ init_node(){
 }
 
 controller_install(){
-	. controller.sh
+	bash controller.sh
 }
 
 compute_install(){
-	compute_host="`awk '/\[compute\]/{a=1;next}/\[/{a=0}a&&!/^$|[ \t]+/{print $0}' openstack.conf`"
+	compute_host=`awk '/\[compute\]/{a=1;next}/\[/{a=0}a&&!/^$|[ \t]+/{print $0}' openstack.conf`
 	[ -n "$compute_host" ] && for i in $compute_host;do
 		sshpass -p $SSH_PASS scp -o StrictHostKeyChecking=no password $i:/tmp/password
 		sshpass -p $SSH_PASS scp -o StrictHostKeyChecking=no compute.sh $i:/tmp/compute.sh
 		sshpass -p $SSH_PASS ssh -o StrictHostKeyChecking=no $i "bash /tmp/compute.sh"
-		[ $? -eq 0 ]||exit 1
 	done
 }
 
 cinder_install(){
-	cinder_host="`awk '/\[cinder\]/{a=1;next}/\[/{a=0}a&&!/^$|[ \t]+/{print $0}' openstack.conf`"
+	cinder_host=`awk '/\[cinder\]/{a=1;next}/\[/{a=0}a&&!/^$|[ \t]+/{print $0}' openstack.conf`
 	[ -n "$cinder_host" ] && for i in $cinder_host;do
                 sshpass -p $SSH_PASS scp -o StrictHostKeyChecking=no password $i:/tmp/password
                 sshpass -p $SSH_PASS scp -o StrictHostKeyChecking=no cinder.sh $i:/tmp/cinder.sh
                 sshpass -p $SSH_PASS ssh -o StrictHostKeyChecking=no $i "bash /tmp/cinder.sh"
-                [ $? -eq 0 ]||exit 1
         done
 }
 #启动测试实例的准备
@@ -79,10 +77,10 @@ menu(){
 		echo "取消安装！"
 		exit 1
 	fi
-	init_node
-	controller_install
-	compute_install
-	cinder_install
-	Test_instance
 }
 menu
+init_node
+controller_install
+compute_install
+cinder_install
+Test_instance

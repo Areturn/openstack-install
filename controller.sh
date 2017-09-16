@@ -152,8 +152,7 @@ Image_service(){
 	echo "验证操作:"
 	. admin-openrc
 	wget -c http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img
-	openstack image create "cirros" --file cirros-0.3.5-x86_64-disk.img --disk-format qcow2 --container-format bare --public
-	openstack image list
+	openstack image list|grep -q "cirros" ||openstack image create "cirros" --file cirros-0.3.5-x86_64-disk.img --disk-format qcow2 --container-format bare --public
 }
 #计算服务
 Compute_service(){
@@ -340,7 +339,7 @@ cinder_install(){
 	openstack role add --project service --user cinder admin
 	openstack service list|grep -q 'volumev2' || openstack service create --name cinderv2 --description "OpenStack Block Storage" volumev2
 	openstack service list|grep -q 'volumev3' || openstack service create --name cinderv3 --description "OpenStack Block Storage" volumev3
-	if ! openstack endpoint list|grep -q 'http://controller:8776/v2/%\(project_id\)s';then
+	if ! openstack endpoint list|grep -q 'http://controller:8776/v2/%(project_id)s';then
 		openstack endpoint create --region RegionOne volumev2 public http://controller:8776/v2/%\(project_id\)s
 		openstack endpoint create --region RegionOne volumev2 internal http://controller:8776/v2/%\(project_id\)s
 		openstack endpoint create --region RegionOne volumev2 admin http://controller:8776/v2/%\(project_id\)s
