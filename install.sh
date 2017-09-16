@@ -49,9 +49,9 @@ Test_instance(){
   --provider-physical-network provider \
   --provider-network-type flat provider
 	openstack subnet create --network provider \
-  --allocation-pool start=10.0.0.101,end=10.0.0.250 \
-  --dns-nameserver 223.5.5.5 --gateway 10.0.0.254 \
-  --subnet-range 10.0.0.0/24 provider	
+  --allocation-pool start=${RANGE/,*/},end=${RANGE/*,/} \
+  --dns-nameserver $DNS --gateway $GW \
+  --subnet-range $SUBNET_RANGE provider	
 	#创建m1.nano 64M内存模板
 	openstack flavor create --id 0 --vcpus 1 --ram 64 --disk 1 m1.nano
 	[ -e "/root/.ssh/id_rsa" ]||ssh-keygen -q -N "" -f /root/.ssh/id_rsa
