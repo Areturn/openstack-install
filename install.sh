@@ -1,5 +1,6 @@
 #!/bin/bash
 . password
+[ $UID -ne 0 ]&&echo "请使用root用户运行脚本!"&&exit 2
 init_node(){
 	bash init_all.sh
 	rpm -q expect sshpass &>/dev/null || yum install expect sshpass -y
@@ -64,7 +65,7 @@ Test_instance(){
 menu(){
 	cat<<-EOF
 	1、请确认服务器虚拟化功能已开启！！！
-	2、脚本将会在本机上部署controller控制节点！
+	2、脚本将会在本机上部署controller控制节点,确保本机主机名为controller！
 	3、将你准备好的hosts文件放在本脚本目录下！
 	4、在openstack.conf文件中配置compute、cinder节点的ip！
 	5、password文件中配置各服务密码。
