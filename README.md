@@ -15,6 +15,7 @@ password:               各项服务密码配置
 openstack.conf:         compute、cinder节点IP设置  
 hsots:                  hosts文件，必须配置各节点能使用主机名互通！  
 ## 2、安装  
-git clone https://github.com/2432556863/openstack-install.git && cd openstack-install  
+#克隆代码  
+git clone https://github.com/2432556863/openstack-install.git && cd openstack-install  
 #修改配置文件、执行安装脚本  
 bash install.sh  
