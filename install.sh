@@ -5,6 +5,7 @@ init_node(){
 	bash init_all.sh
 	rpm -q expect sshpass &>/dev/null || yum install expect sshpass -y
 	#配置所有节点的hosts文件、主机名、环境
+	hostnamectl set-hostname controller
 	BAK=$IFS
 	IFS=$'\n'
 	for i in `awk '$2!~/controller/||NR>2' hosts` ;do
