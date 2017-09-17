@@ -19,7 +19,7 @@ fi
 [ -n "$disk" ] && for i in `echo ${disk[*]}`;do
         pvcreate $i
 	if pvs|grep -q "$vg_name" ;then
-		vgreduce $vg_name $i
+		vgextend $vg_name $i
 	else
         	vgcreate $vg_name $i
 	fi
