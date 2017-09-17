@@ -19,3 +19,5 @@ hsots:                  hosts文件，必须配置各节点能使用主机名互
 git clone https://github.com/2432556863/openstack-install.git && cd openstack-install  
 #修改配置文件、执行安装脚本    
 bash install.sh  
+#安装完成后
+使用浏览器访问 http://controller/dashboard 打开web页面（没做host解析可使用ip代替controller）
